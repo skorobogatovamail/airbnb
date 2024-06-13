@@ -1,6 +1,6 @@
 cd server
 npx sequelize-cli model:generate --name User --attributes name:string,email:string,password:string
-npx sequelize-cli model:generate --name House --attributes name:string,address:string,description:integer,hostId:integer
+npx sequelize-cli model:generate --name House --attributes name:string,address:string,description:text,hostId:integer,image:text
 npx sequelize-cli model:generate --name Comment --attributes userId:integer,houseId:integer,text:integer
 npx sequelize-cli model:generate --name Booking --attributes userId:integer,houseId:integer
 
