@@ -1,18 +1,4 @@
- touch .sequelizerc
-echo '// .sequelizerc
-
-const path = require("path");
-
-module.exports = {
-  config: path.resolve("db", "config", "database.js"),
-  "models-path": path.resolve("db", "models"),
-  "seeders-path": path.resolve("db", "seeders"),
-  "migrations-path": path.resolve("db", "migrations"),
-};' > .sequelizerc
-
-npx sequelize-cli init
-
-echo 'require("dotenv").config();
+require("dotenv").config();
 
 module.exports = {
   development: {
@@ -37,4 +23,4 @@ module.exports = {
     dialect: "mysql",
   },
 };
-' > db/config/database.js
+
