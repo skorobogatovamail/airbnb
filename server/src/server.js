@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const authRouter = require('./routes/authRouter');
 const tokensRouter = require('./routes/tokensRouter');
+const entriesRouter = require('./routes/entriesRouter');
 
 const app = express();
 const PORT = 3000;
@@ -14,5 +15,6 @@ app.use(cookieParser());
 
 app.use('/api/auth', authRouter);
 app.use('/api/tokens', tokensRouter);
+app.use('/api/entries', entriesRouter);
 
 app.listen(PORT, () => console.log());

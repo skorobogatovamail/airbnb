@@ -16,10 +16,10 @@ module.exports = {
         },
         onDelete: 'CASCADE',
       },
-      houseId: {
+      entryId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Houses',
+          model: 'Entries',
           key: 'id',
         },
         onDelete: 'CASCADE',
