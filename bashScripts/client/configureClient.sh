@@ -2,6 +2,11 @@ cd client
 npx degit Elbrus-Bootcamp/vite-react-ts
 npm i
 npm i axios react-router-dom @mui/material @emotion/react @emotion/styled @mui/styled-engine-sc styled-components @mui/icons-material react-redux zod @reduxjs/toolkit 
+
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+
 echo "import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 

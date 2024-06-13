@@ -24,6 +24,7 @@ module.exports = {
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   plugins: ['@typescript-eslint', 'react', 'react-hooks'],
   rules: {
+    'react/jsx-props-no-spreading': 'off',
     '@typescript-eslint/default-param-last': 'off',
     'default-param-last': 'off',
     'no-void': 'off',
