@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../redux/hooks';
 
 export default function Navigation(): JSX.Element {
+  const user = useAppSelector((store) => store.auth.user);
   return (
     <div>
       <header className="flex justify-between">
@@ -21,13 +23,20 @@ export default function Navigation(): JSX.Element {
             />
           </svg>
           <span className="font-bold text-xl">airbnc</span>
+          <span>Hi, {user.status === 'logged' ? user.user.name : 'Guest'}</span>
         </a>
         <div className="flex border border-gray-300 rounded-full px-4 py-2 gap-2 shadow-md shadow-gray-300">
-          <div>Anywhere</div>
+          <div>
+            <Link to="/signup">SignUp</Link>
+          </div>
           <div className="border-l border-gray-3000" />
-          <div>Any week</div>
+          <div>
+            <Link to="/login">Login</Link>
+          </div>
           <div className="border-l border-gray-3000" />
-          <div>Any guests</div>
+          <div>
+            <button type="button">Logout</button>
+          </div>
           <div className=" bg-primary p-1 rounded-full text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"

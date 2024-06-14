@@ -13,7 +13,7 @@ export const authResponceSchema = z.object({
 
 export type UserFromServerType = z.infer<typeof userFromServerSchema>;
 
-const userSignupFormSchema = z.object({
+export const userSignupFormSchema = z.object({
   name: z.string(),
   email: z.string(),
   password: z.string(),

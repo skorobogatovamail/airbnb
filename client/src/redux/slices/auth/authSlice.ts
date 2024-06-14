@@ -1,6 +1,6 @@
 import { createSlice, isAction } from '@reduxjs/toolkit';
 import type { AuthState } from '../../../types/authTypes';
-import { loginThunk, refreshThunk, signupThunk } from './authThunks';
+import { loginThunk, logoutThunk, refreshThunk, signupThunk } from './authThunks';
 
 const initialState: AuthState = {
   accessToken: '',
@@ -34,7 +34,7 @@ export const authSlice = createSlice({
         state.accessToken = '';
         state.user = { status: 'guest' };
       })
-      .addCase(loginThunk.fulfilled, (state, action) => {
+      .addCase(logoutThunk.fulfilled, (state, action) => {
         state.accessToken = '';
         state.user = { status: 'guest' };
       });

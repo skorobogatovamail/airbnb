@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../../redux/hooks';
+import { signupThunk } from '../../redux/slices/auth/authThunks';
+import { userSignupFormSchema } from '../../types/authTypes';
 
 export default function SignUpForm(): JSX.Element {
+  const dispatch = useAppDispatch();
   const inputs = [
     {
       name: 'name',
@@ -25,8 +29,9 @@ export default function SignUpForm(): JSX.Element {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-
     const formdata = Object.fromEntries(new FormData(e.currentTarget));
+    const data = userSignupFormSchema.parse(formdata);
+    void dispatch(signupThunk(data));
   };
   return (
     <form className=" mx-auto max-w-md" onSubmit={handleSubmit}>
