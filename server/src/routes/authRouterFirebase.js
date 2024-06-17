@@ -31,12 +31,10 @@ const usersRef = db.ref('Users');
 // });
 
 router.get('/', async (req, res) => {
-  // Read data
   usersRef.once('value', (snapshot) => res.json(snapshot.val()));
 });
 
 router.route('/signup').post(async (req, res) => {
-  console.log(req.body);
   const { name, email, password } = req.body;
 
   if (!(name && email && password)) {
@@ -50,21 +48,18 @@ router.route('/signup').post(async (req, res) => {
     .once('value');
 
   if (!user.val()) {
-    // Write data
-    user = { name, email, password: bcrypt.hash(password, 10) };
+    user = { name, email, password: await bcrypt.hash(password, 10) };
     await usersRef.set(user);
   } else {
-    console.log(user.val());
     return res
       .status(402)
       .json({ message: 'User with this email already exists' });
   }
 
-  const plainUser = user;
+  const plainUser = { ...user };
   delete plainUser.password;
 
   const { accessToken, refreshToken } = generateTokens({ user: plainUser });
-  console.log('result: ', { user: plainUser, accessToken });
 
   return res
     .cookie('refreshToken', refreshToken, cookiesConfig.refresh)
@@ -95,7 +90,7 @@ router.route('/login').post(async (req, res) => {
     return res.status(401).json({ message: 'Incorrect user or password' });
   }
 
-  const plainUser = user.val();
+  const plainUser = { ...user.val() };
   delete plainUser.password;
 
   const { accessToken, refreshToken } = generateTokens({ user: plainUser });
