@@ -1,7 +1,7 @@
 import type { AxiosInstance, AxiosResponse } from 'axios';
 import httpClient from './httpClient';
-import { authResponceSchema } from '../types/authTypes';
-import type { AuthState, UserLoginFormType, UserSignupFormType } from '../types/authTypes';
+import { authResponceSchema } from '../types/authTypesFirebase';
+import type { AuthState, UserLoginFormType, UserSignupFormType } from '../types/authTypesFirebase';
 
 class AuthServiceFirebase {
   constructor(private readonly client: AxiosInstance) {}
@@ -9,6 +9,7 @@ class AuthServiceFirebase {
   async signup(formdata: UserSignupFormType): Promise<AuthState> {
     const res = await this.client.post('/authFirebase/signup', formdata);
     const data = authResponceSchema.parse(res.data);
+    console.log('client data ', data);
     return {
       accessToken: data.accessToken,
       user: { status: 'logged', user: data.user },

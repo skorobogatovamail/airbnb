@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../redux/hooks';
 
 export default function Navigation(): JSX.Element {
-  const user = useAppSelector((store) => store.auth.user);
+  const user = useAppSelector((store) => store.authFirebase.user);
   return (
     <div>
       <header className="flex justify-between">

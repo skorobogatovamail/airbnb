@@ -64,6 +64,7 @@ router.route('/signup').post(async (req, res) => {
   delete plainUser.password;
 
   const { accessToken, refreshToken } = generateTokens({ user: plainUser });
+  console.log('result: ', { user: plainUser, accessToken });
 
   return res
     .cookie('refreshToken', refreshToken, cookiesConfig.refresh)

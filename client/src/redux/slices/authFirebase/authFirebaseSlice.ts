@@ -1,5 +1,5 @@
 import { createSlice, isAction } from '@reduxjs/toolkit';
-import type { AuthState } from '../../../types/authTypes';
+import type { AuthState } from '../../../types/authTypesFirebase';
 import { loginThunk, logoutThunk, refreshThunk, signupThunk } from './authFirebaseThunks';
 
 const initialState: AuthState = {
@@ -10,7 +10,7 @@ const initialState: AuthState = {
 };
 
 export const authFirebaseSlice = createSlice({
-  name: 'auth',
+  name: 'authFirebase',
   initialState,
   reducers: {},
   extraReducers: (builder) => {

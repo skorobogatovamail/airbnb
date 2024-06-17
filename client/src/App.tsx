@@ -4,15 +4,15 @@ import Layout from './components/Layout';
 import MainPage from './components/pages/MainPage';
 import SignupPage from './components/pages/SignupPage';
 import LoginPage from './components/pages/LoginPage';
-import { useAppDispatch, useAppSelector } from './redux/hooks';
-import { refreshThunk } from './redux/slices/auth/authThunks';
+import { useAppDispatch } from './redux/hooks';
+import { refreshThunk } from './redux/slices/authFirebase/authFirebaseThunks';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((store) => store.auth.user);
 
   useEffect(() => {
     void dispatch(refreshThunk);
+    void dispatch(refreshThunk());
   }, []);
 
   const routes = [
