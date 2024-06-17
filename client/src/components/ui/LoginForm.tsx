@@ -28,19 +28,13 @@ export default function LoginForm(): JSX.Element {
     void dispatch(loginThunk(data));
   };
   return (
-    <form className=" mx-auto max-w-md" onSubmit={handleLogin}>
+    <form className="mx-auto max-w-md" onSubmit={handleLogin}>
       {inputs.map((inp) => (
         <input {...inp} />
       ))}
       <button type="submit" className="primary">
         Register
       </button>
-      <div className="text-center text-gray-500">
-        Already a member?{' '}
-        <Link className="underline text-black" to="/login">
-          Login
-        </Link>
-      </div>
     </form>
   );
 }

@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/hooks';
-import { signupThunk } from '../../redux/slices/auth/authThunks';
+import { signupThunk } from '../../redux/slices/authFirebase/authFirebaseThunks';
 import { userSignupFormSchema } from '../../types/authTypes';
 
 export default function SignUpForm(): JSX.Element {
@@ -41,12 +40,6 @@ export default function SignUpForm(): JSX.Element {
       <button type="submit" className="primary">
         Register
       </button>
-      <div className="text-center text-gray-500">
-        Already a member?{' '}
-        <Link className="underline text-black" to="/login">
-          Login
-        </Link>
-      </div>
     </form>
   );
 }

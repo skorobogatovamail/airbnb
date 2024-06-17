@@ -23,21 +23,28 @@ export default function Navigation(): JSX.Element {
             />
           </svg>
           <span className="font-bold text-xl">airbnc</span>
-          <span>Hi, {user.status === 'logged' ? user.user.name : 'Guest'}</span>
+          <span className="font-bold text-xl ml-10">
+            Hi, {user.status === 'logged' ? user.user.name : 'Guest'}
+          </span>
         </a>
-        <div className="flex border border-gray-300 rounded-full px-4 py-2 gap-2 shadow-md shadow-gray-300">
-          <div>
-            <Link to="/signup">SignUp</Link>
+        <div className="flex border border-gray-300 rounded-full px-4 py-2 gap-2 shadow-md shadow-gray-300 mr-md-10">
+          <div className="mx-md-10 flex  items-center">
+            <button type="button">
+              <Link to="/signup">SignUp</Link>
+            </button>
           </div>
           <div className="border-l border-gray-3000" />
-          <div>
-            <Link to="/login">Login</Link>
+          <div className="mx-md-10 flex  items-center">
+            <button type="button">
+              <Link to="/login">Login</Link>
+            </button>
           </div>
           <div className="border-l border-gray-3000" />
-          <div>
+          <div className="mx-md-10 my-2 flex  items-center">
             <button type="button">Logout</button>
           </div>
-          <div className=" bg-primary p-1 rounded-full text-white">
+          <div className="border-l border-gray-3000" />
+          <div className=" bg-primary p-1 rounded-full text-white mx-1 my-2 flex  items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -53,41 +60,6 @@ export default function Navigation(): JSX.Element {
               />
             </svg>
           </div>
-        </div>
-        <div className="flex border border-gray-300 rounded-full px-4 py-2 gap-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
-          </svg>
-          <Link
-            to="/login"
-            className="bg-gray-500 rounded-full text-white border border-gray-500 overflow-hidden"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6 relative top-1"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-              />
-            </svg>
-          </Link>
         </div>
       </header>
     </div>
