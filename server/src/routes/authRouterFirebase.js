@@ -1,34 +1,15 @@
 // authRouter.js
 
-const admin = require('firebase-admin');
 const { Router } = require('express');
 const bcrypt = require('bcrypt');
 const generateTokens = require('../utils/generateTokens');
 const cookiesConfig = require('../config/cookiesConfig');
+const db = require('./db');
 require('dotenv').config();
 
 const router = Router();
 
-const serviceAccount = require('../airbnc-aff91-firebase-adminsdk-67ky1-2fda4f6582.json');
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: process.env.FIREBASE_DATABASE_URL,
-});
-
-const db = admin.database();
 const usersRef = db.ref('Users');
-
-// const { FIREBASE_DATABASE_URL } = process.env;
-// router.route('/signup').post(async (req, res) => {
-//   const fireResponse = await axios.post(`${FIREBASE_DATABASE_URL}/Users.json`, {
-//     name,
-//     email,
-//     password,
-//   });
-//   console.log('fireResponse:', fireResponse);
-// res.sendStatus(200);
-// });
 
 router.get('/', async (req, res) => {
   usersRef.once('value', (snapshot) => res.json(snapshot.val()));
@@ -47,16 +28,17 @@ router.route('/signup').post(async (req, res) => {
     .limitToFirst(1)
     .once('value');
 
+  let newUser;
   if (!user.val()) {
     user = { name, email, password: await bcrypt.hash(password, 10) };
-    await usersRef.set(user);
+    newUser = await usersRef.push(user);
   } else {
     return res
       .status(402)
       .json({ message: 'User with this email already exists' });
   }
 
-  const plainUser = { ...user };
+  const plainUser = { ...user, key: newUser.key };
   delete plainUser.password;
 
   const { accessToken, refreshToken } = generateTokens({ user: plainUser });

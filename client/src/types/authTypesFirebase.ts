@@ -3,6 +3,7 @@ import { z } from 'zod';
 export const userFromServerSchema = z.object({
   name: z.string(),
   email: z.string(),
+  key: z.string(),
 });
 
 export const authResponceSchema = z.object({
