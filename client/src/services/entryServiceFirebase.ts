@@ -1,4 +1,4 @@
-import type { AxiosInstance, AxiosResponse } from 'axios';
+import type { AxiosInstance } from 'axios';
 import { entrySchema } from '../types/entriesTypes';
 import type { EntryFormType, EntryType } from '../types/entriesTypes';
 import httpClient from './httpClient';
@@ -38,8 +38,8 @@ class EntryService {
     return Promise.reject(new Error('unable to create entry'));
   }
 
-  async updateEntry(key: EntryType['key'], formdata: EntryFormType): Promise<EntryType> {
-    const res = await this.client.put(`/entriesFirebase/${key}`, formdata);
+  async updateEntry(formdata: EntryType): Promise<EntryType> {
+    const res = await this.client.put(`/entriesFirebase/${formdata.key}`, formdata);
     if (res.status === 200) {
       const data = entrySchema.parse(res.data);
       return data;
