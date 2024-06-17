@@ -6,6 +6,7 @@ export const entrySchema = z.object({
   hostId: z.number().optional().nullable(),
   name: z.string(),
   key: z.string().optional().nullable(),
+  image: z.string().optional(),
 });
 
 export type EntryType = z.infer<typeof entrySchema>;
