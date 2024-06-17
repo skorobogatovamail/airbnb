@@ -36,29 +36,32 @@ router.get('/', async (req, res) => {
 });
 
 router.route('/signup').post(async (req, res) => {
+  console.log(req.body);
   const { name, email, password } = req.body;
 
   if (!(name && email && password)) {
     return res.status(400).json({ message: 'All fields are required' });
   }
 
-  const user = await usersRef
+  let user = await usersRef
     .orderByChild('email')
-    .equalTo('test@example.com')
+    .equalTo(email)
     .limitToFirst(1)
     .once('value');
 
-  if (!user) {
+  if (!user.val()) {
     // Write data
-    usersRef.set({ name, email, password: bcrypt.hash(password, 10) });
+    user = { name, email, password: bcrypt.hash(password, 10) };
+    await usersRef.set(user);
   } else {
+    console.log(user.val());
     return res
       .status(402)
       .json({ message: 'User with this email already exists' });
   }
 
-  const plainUser = user.value();
-  delete plainUser.password();
+  const plainUser = user;
+  delete plainUser.password;
 
   const { accessToken, refreshToken } = generateTokens({ user: plainUser });
 
@@ -76,7 +79,7 @@ router.route('/login').post(async (req, res) => {
 
   const user = await usersRef
     .orderByChild('email')
-    .equalTo('test@example.com')
+    .equalTo(email)
     .limitToFirst(1)
     .once('value');
 
@@ -91,8 +94,8 @@ router.route('/login').post(async (req, res) => {
     return res.status(401).json({ message: 'Incorrect user or password' });
   }
 
-  const plainUser = user.value();
-  delete plainUser.password();
+  const plainUser = user.val();
+  delete plainUser.password;
 
   const { accessToken, refreshToken } = generateTokens({ user: plainUser });
 
