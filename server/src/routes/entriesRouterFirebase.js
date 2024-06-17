@@ -40,7 +40,10 @@ router
     try {
       const { id } = req.params;
       await entriesRef.child(id).update(req.body);
-      res.sendStatus(200);
+      const updatedEntry = await entriesRef
+        .child(id)
+        .once('value', (snapshot) => res.json(snapshot.val()));
+      res.json(updatedEntry);
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: 'Failed to update entry' });
