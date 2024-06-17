@@ -11,3 +11,9 @@ export const entrySchema = z.object({
 export type EntryType = z.infer<typeof entrySchema>;
 
 export type EntryFormType = Omit<EntryType, 'key'>;
+
+export type EntryStateType = {
+  entries: EntryType[];
+  currentEntry: EntryType | null;
+  favorites: EntryType[];
+};
