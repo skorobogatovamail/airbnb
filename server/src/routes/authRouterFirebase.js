@@ -9,13 +9,13 @@ require('dotenv').config();
 
 const router = Router();
 
-const serviceAccount = require('../airbnc-c67fa-firebase-adminsdk-6s2om-d52206a8a8.json');
+const serviceAccount = require('../airbnc-aff91-firebase-adminsdk-67ky1-2fda4f6582.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL:
-    'https://airbnc-c67fa-default-rtdb.europe-west1.firebasedatabase.app',
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
 });
+
 const db = admin.database();
 const usersRef = db.ref('Users');
 
