@@ -11,7 +11,6 @@ function App(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    void dispatch(refreshThunk);
     void dispatch(refreshThunk());
   }, []);
 
