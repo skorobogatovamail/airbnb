@@ -14,7 +14,7 @@ const initialState: EntryStateType = {
   favorites: [],
 };
 
-export const entrySlice = createSlice({
+export const entriesSlice = createSlice({
   name: 'entriesFirebase',
   initialState,
   reducers: {},
@@ -39,6 +39,6 @@ export const entrySlice = createSlice({
   },
 });
 
-const entryReducer = entrySlice.reducer;
+const entriesReducer = entriesSlice.reducer;
 
-export default entryReducer;
+export default entriesReducer;
