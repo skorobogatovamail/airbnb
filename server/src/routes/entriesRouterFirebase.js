@@ -10,14 +10,20 @@ const entriesRef = db.ref('Entries');
 router
   .route('/')
   .get(async (req, res) => {
-    entriesRef.once('value', (snapshot) => res.json(snapshot.val()));
+    entriesRef.once('value', (snapshot) => {
+      const keys = Object.keys(snapshot.val());
+      const values = Object.values(snapshot.val());
+      values.forEach((key, i) => {
+        values[i].key = keys[i];
+      });
+      res.json(values);
+    });
   })
   .post(verifyAccessToken, async (req, res) => {
     try {
       const newUser = await entriesRef.push(req.body);
       res.json({ ...req.body, key: newUser.key });
     } catch (error) {
-      console.log(error);
       res.status(500).json({ message: 'Failed to create entry' });
     }
   });
@@ -27,9 +33,9 @@ router
   .get(async (req, res) => {
     try {
       const { id } = req.params;
-      const entry = await entriesRef
-        .child(id)
-        .once('value', (snapshot) => res.json(snapshot.val()));
+      const entry = await entriesRef.child(id).once('value', (snapshot) => {
+        res.json({ ...snapshot.val(), key: snapshot.key });
+      });
       res.json(entry);
     } catch (error) {
       console.log(error);

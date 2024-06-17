@@ -6,12 +6,14 @@ import SignupPage from './components/pages/SignupPage';
 import LoginPage from './components/pages/LoginPage';
 import { useAppDispatch } from './redux/hooks';
 import { refreshThunk } from './redux/slices/authFirebase/authFirebaseThunks';
+import { getAllEntriesThunk } from './redux/slices/entriesFirebase/entriesFirebaseThunks';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     void dispatch(refreshThunk());
+    void dispatch(getAllEntriesThunk());
   }, []);
 
   const routes = [
