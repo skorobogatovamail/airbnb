@@ -6,11 +6,18 @@ type EntryCardProps = {
   entry: EntryType;
 };
 export default function EntryCard({ entry }: EntryCardProps): JSX.Element {
+  const defaultImage =
+    'https://images.bubbleup.com/width1920/quality35/mville2017/1-brand/1-margaritaville.com/gallery-media/220803-compasshotel-medford-pool-73868-1677873697-78625-1694019828.jpg';
+
   return (
     <div className="w-64">
       <Link to={`/hotels/${entry.key}`}>
         <div>
-          <img className="object-cover rounded-xl h-64" src={entry.image} alt="hotel" />
+          <img
+            className="object-cover rounded-xl h-64"
+            src={entry.image || defaultImage}
+            alt="hotel"
+          />
         </div>
       </Link>
 

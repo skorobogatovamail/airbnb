@@ -21,8 +21,14 @@ router
   })
   .post(verifyAccessToken, async (req, res) => {
     try {
-      const newUser = await entriesRef.push(req.body);
-      res.json({ ...req.body, key: newUser.key });
+      const newEntry = await entriesRef.push(req.body);
+      const defaultImage =
+        'https://images.bubbleup.com/width1920/quality35/mville2017/1-brand/1-margaritaville.com/gallery-media/220803-compasshotel-medford-pool-73868-1677873697-78625-1694019828.jpg';
+      if (!req.body.image) {
+        res.json({ ...req.body, key: newEntry.key, image: defaultImage });
+      } else {
+        res.json({ ...req.body, key: newEntry.key });
+      }
     } catch (error) {
       res.status(500).json({ message: 'Failed to create entry' });
     }

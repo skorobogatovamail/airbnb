@@ -7,8 +7,8 @@ import LoginPage from './components/pages/LoginPage';
 import { useAppDispatch } from './redux/hooks';
 import { refreshThunk } from './redux/slices/authFirebase/authFirebaseThunks';
 import { getAllEntriesThunk } from './redux/slices/entriesFirebase/entriesFirebaseThunks';
-import HotelPage from './components/pages/HotelPage';
-import HotelFormPage from './components/pages/HotelFormPage';
+import CardPage from './components/pages/CardPage';
+import CardFormPage from './components/pages/CardFormPage';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -25,8 +25,8 @@ function App(): JSX.Element {
         { path: '/', element: <MainPage /> },
         { path: '/signup', element: <SignupPage /> },
         { path: '/login', element: <LoginPage /> },
-        { path: '/hotels/:id', element: <HotelPage /> },
-        { path: '/hotels/new', element: <HotelFormPage /> },
+        { path: '/hotels/:id', element: <CardPage /> },
+        { path: '/hotels/new', element: <CardFormPage /> },
       ],
     },
   ];

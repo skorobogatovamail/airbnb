@@ -11,6 +11,14 @@ export const entrySchema = z.object({
 
 export type EntryType = z.infer<typeof entrySchema>;
 
+export const entryFormSchema = z.object({
+  address: z.string(),
+  description: z.string(),
+  hostId: z.number().optional().nullable(),
+  name: z.string(),
+  image: z.string().optional(),
+});
+
 export type EntryFormType = Omit<EntryType, 'key'>;
 
 export type EntryStateType = {

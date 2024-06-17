@@ -2,6 +2,7 @@ import React from 'react';
 import { useAppDispatch } from '../../redux/hooks';
 import { signupThunk } from '../../redux/slices/authFirebase/authFirebaseThunks';
 import { userSignupFormSchema } from '../../types/authTypes';
+import UniversalForm from './UniversalForm';
 
 export default function SignUpForm(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -32,14 +33,5 @@ export default function SignUpForm(): JSX.Element {
     const data = userSignupFormSchema.parse(formdata);
     void dispatch(signupThunk(data));
   };
-  return (
-    <form className=" mx-auto max-w-md" onSubmit={handleSubmit}>
-      {inputs.map((inp) => (
-        <input {...inp} />
-      ))}
-      <button type="submit" className="primary">
-        Register
-      </button>
-    </form>
-  );
+  return <UniversalForm inputs={inputs} onSubmit={handleSubmit} buttonText="Login" />;
 }
