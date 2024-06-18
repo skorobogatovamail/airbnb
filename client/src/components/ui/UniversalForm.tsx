@@ -1,4 +1,7 @@
 import React from 'react';
+import { useAppDispatch } from '../../redux/hooks';
+import { uploadPhotoByLinkThunk } from '../../redux/slices/entriesFirebase/entriesFirebaseThunks';
+import type { UploadPhotoLinkType } from '../../types/entriesTypes';
 
 type Inp = {
   name: string;
@@ -20,6 +23,16 @@ export default function UniversalForm({
   buttonText,
   withDownloads = false,
 }: UniversalFormProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const uploadPhotoByLink = (e: React.FormEvent<HTMLFormElement>): void => {
+    console.log('qwerty');
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.currentTarget)) as UploadPhotoLinkType;
+    console.log(data);
+    // void dispatch(uploadPhotoByLinkThunk(data));
+  };
+
   return (
     <form className="mx-auto max-w-md" onSubmit={onSubmit}>
       {inputs.map((inp) => (
@@ -28,12 +41,12 @@ export default function UniversalForm({
       {withDownloads && (
         <>
           <textarea placeholder="Description of the hotel " />
-          <div className="flex gap-2">
-            <input type="text" placeholder="Add photo via link" />
-            <button type="button" className="bg-gray-200 rounded-2xl px-4 my-2">
+          <form onSubmit={uploadPhotoByLink} className="flex gap-2">
+            <input type="text" placeholder="Add photo via link" name="link" />
+            <button type="submit" className="bg-gray-200 rounded-2xl px-4 my-2">
               Add&nbsp;photo
             </button>
-          </div>
+          </form>
 
           <button
             type="button"

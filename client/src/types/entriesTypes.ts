@@ -26,3 +26,7 @@ export type EntryStateType = {
   currentEntry: EntryType | null;
   favorites: EntryType[];
 };
+
+export type UploadPhotoLinkType = {
+  link: string;
+};

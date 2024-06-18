@@ -1,6 +1,6 @@
-import type { AxiosInstance } from 'axios';
+import type { AxiosInstance, AxiosResponse } from 'axios';
 import { entrySchema } from '../types/entriesTypes';
-import type { EntryFormType, EntryType } from '../types/entriesTypes';
+import type { EntryFormType, EntryType, UploadPhotoLinkType } from '../types/entriesTypes';
 import httpClient from './httpClient';
 
 class EntryService {
@@ -53,6 +53,10 @@ class EntryService {
       return key;
     }
     return Promise.reject(new Error('unable to create entry'));
+  }
+
+  async uploadPhotoByLink(formdata: UploadPhotoLinkType): Promise<AxiosResponse> {
+    return this.client.post(`/entriesFirebase/upload_image_link`, formdata);
   }
 }
 

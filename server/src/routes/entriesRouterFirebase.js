@@ -1,5 +1,7 @@
 // src/routes/entriesRouter.js
 const { Router } = require('express');
+const path = require('path');
+const imageDownloader = require('image-downloader');
 const { verifyAccessToken } = require('../middleware/verifyTokens');
 const db = require('./db');
 
@@ -71,4 +73,17 @@ router
       res.status(500).json({ message: 'Failed to delete entry' });
     }
   });
+
+router.route('/upload_image_link').post(async (req, res) => {
+  const { link } = req.body;
+  const newName = `${Date.now()}.jpg`;
+
+  const options = {
+    url: link,
+    dest: path.join(__dirname, '..', '..', 'uploads', newName),
+  };
+
+  await imageDownloader.image(options);
+  res.sendStatus(200);
+});
 module.exports = router;

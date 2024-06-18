@@ -4,7 +4,6 @@ import { useAppDispatch } from '../../redux/hooks';
 import { postEntryThunk } from '../../redux/slices/entriesFirebase/entriesFirebaseThunks';
 import { entryFormSchema } from '../../types/entriesTypes';
 
-
 export default function CardForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const inputs = [
@@ -34,5 +33,5 @@ export default function CardForm(): JSX.Element {
     const data = entryFormSchema.parse(formdata);
     void dispatch(postEntryThunk(data));
   };
-  return <UniversalForm inputs={inputs} onSubmit={handleSubmit} buttonText="Save" withDownloads/>;
+  return <UniversalForm inputs={inputs} onSubmit={handleSubmit} buttonText="Save" withDownloads />;
 }
