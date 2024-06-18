@@ -14,7 +14,7 @@ type UniversalFormProps = {
   inputs: Inp[];
   onSubmit: React.FormEventHandler<HTMLFormElement>;
   buttonText: string;
-  withDownloads: boolean;
+  withDownloads?: boolean;
 };
 
 export default function UniversalForm({
