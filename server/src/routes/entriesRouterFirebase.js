@@ -75,15 +75,19 @@ router
   });
 
 router.route('/upload_image_link').post(async (req, res) => {
-  const { link } = req.body;
-  const newName = `${Date.now()}.jpg`;
+  try {
+    const { link } = req.body;
+    const newName = `${Date.now()}.jpg`;
 
-  const options = {
-    url: link,
-    dest: path.join(__dirname, '..', '..', 'uploads', newName),
-  };
+    const options = {
+      url: link,
+      dest: path.join(__dirname, '..', '..', 'uploads', newName),
+    };
 
-  await imageDownloader.image(options);
-  res.sendStatus(200);
+    await imageDownloader.image(options);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+  }
 });
 module.exports = router;

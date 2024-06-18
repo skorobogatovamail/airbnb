@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAppDispatch } from '../../redux/hooks';
 import { uploadPhotoByLinkThunk } from '../../redux/slices/entriesFirebase/entriesFirebaseThunks';
 import type { UploadPhotoLinkType } from '../../types/entriesTypes';
@@ -24,13 +24,12 @@ export default function UniversalForm({
   withDownloads = false,
 }: UniversalFormProps): JSX.Element {
   const dispatch = useAppDispatch();
+  const [link, setLink] = useState<UploadPhotoLinkType['link']>('');
+  const [addedPhotos, setAddedPhotos] = useState<string[]>([]);
 
-  const uploadPhotoByLink = (e: React.FormEvent<HTMLFormElement>): void => {
-    console.log('qwerty');
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget)) as UploadPhotoLinkType;
-    console.log(data);
-    // void dispatch(uploadPhotoByLinkThunk(data));
+  const uploadPhotoByLink = (photoLink: UploadPhotoLinkType['link']): void => {
+    void dispatch(uploadPhotoByLinkThunk({ link: photoLink }));
+    setAddedPhotos((prev) => [...prev, link]);
   };
 
   return (
@@ -41,12 +40,38 @@ export default function UniversalForm({
       {withDownloads && (
         <>
           <textarea placeholder="Description of the hotel " />
-          <form onSubmit={uploadPhotoByLink} className="flex gap-2">
-            <input type="text" placeholder="Add photo via link" name="link" />
-            <button type="submit" className="bg-gray-200 rounded-2xl px-4 my-2">
+          <div className="flex gap-4">
+            {addedPhotos.length > 0 &&
+              addedPhotos.map((el) => (
+                <div className="relative">
+                  <img className="w-56" src={el} alt="uploaded" />
+                  <button
+                    className="absolute top-2 right-2 text-xl bg-white rounded-2xl w-10 h-10 "
+                    type="button"
+                    onClick={() => setAddedPhotos((prev) => prev.filter((x) => x !== el))}
+                  >
+                    x
+                  </button>
+                </div>
+              ))}
+          </div>
+
+          <div className="flex gap-2">
+            <input
+              type="text"
+              placeholder="Add photo via link"
+              name="link"
+              onChange={(e) => setLink(e.target.value)}
+            />
+
+            <button
+              onClick={() => uploadPhotoByLink(link)}
+              type="button"
+              className="bg-gray-200 rounded-2xl px-4 my-2"
+            >
               Add&nbsp;photo
             </button>
-          </form>
+          </div>
 
           <button
             type="button"
