@@ -1,6 +1,11 @@
 import type { AxiosInstance, AxiosResponse } from 'axios';
 import { entrySchema } from '../types/entriesTypes';
-import type { EntryFormType, EntryType, UploadPhotoLinkType } from '../types/entriesTypes';
+import type {
+  EntryFormType,
+  EntryType,
+  UploadPhotoLinkType,
+  UploadPhotoType,
+} from '../types/entriesTypes';
 import httpClient from './httpClient';
 
 class EntryService {
@@ -57,6 +62,12 @@ class EntryService {
 
   async uploadPhotoByLink(formdata: UploadPhotoLinkType): Promise<AxiosResponse> {
     return this.client.post(`/entriesFirebase/upload_image_link`, formdata);
+  }
+
+  async uploadPhoto(formdata: UploadPhotoType): Promise<AxiosResponse> {
+    return this.client.post(`/entriesFirebase/upload_image`, formdata, {
+      headers: { 'Content-type': 'multipart/form-data' },
+    });
   }
 }
 

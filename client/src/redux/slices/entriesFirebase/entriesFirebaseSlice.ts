@@ -6,6 +6,7 @@ import {
   getOneEntryThunk,
   postEntryThunk,
   updateEntryThunk,
+  uploadPhotoByLinkThunk,
 } from './entriesFirebaseThunks';
 
 const initialState: EntryStateType = {

@@ -30,3 +30,7 @@ export type EntryStateType = {
 export type UploadPhotoLinkType = {
   link: string;
 };
+
+export type UploadPhotoType = {
+  photo: object;
+};

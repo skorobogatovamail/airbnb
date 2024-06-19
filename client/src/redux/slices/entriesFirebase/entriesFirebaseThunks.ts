@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import entryService from '../../../services/entryServiceFirebase';
-import type { EntryFormType, EntryType, UploadPhotoLinkType } from '../../../types/entriesTypes';
+import type { EntryFormType, EntryType, UploadPhotoLinkType, UploadPhotoType } from '../../../types/entriesTypes';
 
 export const getAllEntriesThunk = createAsyncThunk('entriesFirebase/getAllEntriesThunk', () =>
   entryService.getAllEntries(),
@@ -27,6 +27,11 @@ export const deleteEntryThunk = createAsyncThunk(
 );
 
 export const uploadPhotoByLinkThunk = createAsyncThunk(
-  'entriesFirebase/uploadPhotoByLink',
+  'entriesFirebase/uploadPhotoByLinkThunk',
   (formdata: UploadPhotoLinkType) => entryService.uploadPhotoByLink(formdata),
+);
+
+export const uploadPhotoThunk = createAsyncThunk(
+  'entriesFirebase/uploadPhotoThunk',
+  (formdata: UploadPhotoType) => entryService.uploadPhoto(formdata),
 );

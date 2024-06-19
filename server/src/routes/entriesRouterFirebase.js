@@ -4,6 +4,7 @@ const path = require('path');
 const imageDownloader = require('image-downloader');
 const { verifyAccessToken } = require('../middleware/verifyTokens');
 const db = require('./db');
+const uploadPhoto = require('../middleware/uploadPhoto');
 
 const router = Router();
 
@@ -90,4 +91,25 @@ router.route('/upload_image_link').post(async (req, res) => {
     console.log(error);
   }
 });
+
+router
+  .route('/upload_image')
+  .post(uploadPhoto.array('photo', 10), async (req, res) => {
+    try {
+      console.log(req.body);
+      res.json(req.files);
+      // const { link } = req.body;
+      // const newName = `${Date.now()}.jpg`;
+
+      // const options = {
+      //   url: link,
+      //   dest: path.join(__dirname, '..', '..', 'uploads', newName),
+      // };
+
+      // await imageDownloader.image(options);
+      // res.sendStatus(200);
+    } catch (error) {
+      console.log(error);
+    }
+  });
 module.exports = router;

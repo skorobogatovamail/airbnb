@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../redux/hooks';
-import { uploadPhotoByLinkThunk } from '../../redux/slices/entriesFirebase/entriesFirebaseThunks';
+import {
+  uploadPhotoByLinkThunk,
+  uploadPhotoThunk,
+} from '../../redux/slices/entriesFirebase/entriesFirebaseThunks';
 import type { UploadPhotoLinkType } from '../../types/entriesTypes';
 
 type Inp = {
@@ -32,6 +35,13 @@ export default function UniversalForm({
     setAddedPhotos((prev) => [...prev, link]);
   };
 
+  const uploadPhoto = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const { files } = e.target;
+    console.log(files[0]);
+    void dispatch(uploadPhotoThunk({ photo: files[0] }));
+    // setAddedPhotos((prev) => [...prev, files[0].name]);
+  };
+
   return (
     <form className="mx-auto max-w-md" onSubmit={onSubmit}>
       {inputs.map((inp) => (
@@ -43,10 +53,10 @@ export default function UniversalForm({
           <div className="flex gap-4">
             {addedPhotos.length > 0 &&
               addedPhotos.map((el) => (
-                <div className="relative">
-                  <img className="w-56" src={el} alt="uploaded" />
+                <div className="relative ">
+                  <img className="w-56 rounded-2xl" src={el} alt="uploaded" />
                   <button
-                    className="absolute top-2 right-2 text-xl bg-white rounded-2xl w-10 h-10 "
+                    className="absolute top-2 right-2 text-xl bg-white rounded-2xl w-8 h-8 "
                     type="button"
                     onClick={() => setAddedPhotos((prev) => prev.filter((x) => x !== el))}
                   >
@@ -73,11 +83,11 @@ export default function UniversalForm({
             </button>
           </div>
 
-          <button
-            type="button"
-            className=" flex justify-between items-center border my-2 py-4 px-10 rounded-2xl text-gray-400 bg-gray-100"
+          <label
+            htmlFor="file"
+            className="cursor-pointer flex justify-between items-center border my-2 py-4 px-10 rounded-2xl text-gray-400 bg-gray-100"
           >
-            {' '}
+            <input type="file" className="hidden" id="file" onChange={uploadPhoto} />{' '}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -93,7 +103,7 @@ export default function UniversalForm({
               />
             </svg>
             Upload from your device
-          </button>
+          </label>
         </>
       )}
       <button type="submit" className="primary">
